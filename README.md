@@ -1,65 +1,138 @@
-# Titanic Machine Learning Project
+# 🚢 Titanic Survival Prediction — End-to-End Machine Learning Pipeline
 
-This repository contains a complete, end-to-end machine learning solution for predicting passenger survival on the Titanic dataset.  
-The project emphasizes **clean pipelines, feature engineering, robust evaluation, and model interpretability**, following industry-aligned best practices.
+This project presents a **complete machine learning workflow** for predicting passenger survival on the Titanic dataset.
 
-The project is now **complete**, covering the full lifecycle from baseline modeling to advanced explainability.
+The goal of this project is to demonstrate **clean ML pipelines, feature engineering, model evaluation, and explainability**, following industry-aligned data science practices.
+
+The workflow progresses from **baseline modeling to advanced model interpretability using SHAP**.
 
 ---
 
-## Project Objectives
-- Build reproducible and leakage-free machine learning pipelines
-- Apply structured feature engineering to improve predictive performance
+## 📂 Project Structure
+
+This repository explores multiple modeling approaches for the Titanic survival prediction problem.
+
+### ⭐ Main Notebook
+**Titanic_Survival_Final_Model.ipynb**
+
+Complete end-to-end pipeline including:
+
+- Data preprocessing
+- Feature engineering
+- Model training
+- Hyperparameter tuning
+- Model evaluation
+- SHAP explainability
+
+This notebook represents the **final machine learning workflow**.
+
+### Additional Experiments
+
+**Logistic_reg_pipeline.ipynb**
+
+Baseline model using Logistic Regression to establish benchmark performance.
+
+**GridSearch_Pipeline.ipynb**
+
+Hyperparameter tuning using GridSearchCV to optimize model performance.
+
+**SHAP_Advance_Concept.ipynb**
+
+Model interpretability using SHAP to understand feature contributions and prediction behavior.
+
+---
+
+## 🎯 Project Objectives
+
+- Build **reproducible machine learning pipelines**
+- Prevent **data leakage using Scikit-learn pipelines**
+- Apply structured **feature engineering**
 - Compare baseline and advanced models
-- Perform thorough model evaluation beyond accuracy
-- Interpret model behavior using modern explainability techniques
+- Perform **robust model evaluation**
+- Interpret model predictions using **SHAP explainability**
 
 ---
 
-## Dataset
-- Source: Kaggle Titanic Dataset
-- Target Variable: `Survived` (0 = No, 1 = Yes)
-- Features include passenger demographics, ticket class, fare, and family information
+## 📊 Dataset
+
+Source: **Kaggle Titanic Dataset**
+
+Target variable:
+
+**Survived**
+- `0` → Passenger did not survive  
+- `1` → Passenger survived
+
+Key features include:
+
+- Passenger class
+- Age
+- Fare
+- Gender
+- Family relationships
+- Port of embarkation
 
 ---
 
-## Feature Engineering
-Custom features were created to improve signal quality:
-- **Title** extracted from passenger names (with rare-title grouping)
-- **FamilySize** = SibSp + Parch + 1
-- **IsAlone** indicator
-- **FarePerPerson** = Fare / FamilySize
+## ⚙️ Feature Engineering
 
-All feature engineering is implemented inside a Scikit-learn pipeline to prevent data leakage.
+Several custom features were created to improve predictive performance.
 
----
+**IsAlone**
 
-## Preprocessing
-Implemented using `ColumnTransformer`:
-- Numerical features:
-  - Median imputation
-  - Standard scaling
-- Categorical features:
-  - Most-frequent imputation
-  - One-hot encoding
-- Fully integrated into pipelines for reproducibility
+Binary indicator showing whether the passenger traveled alone.
+
+**FarePerPerson**
+
+
+**Title Extraction**
+
+Passenger titles were extracted from names and rare titles were grouped together.
+
+
+All transformations are implemented **inside Scikit-learn pipelines** to prevent data leakage.
 
 ---
 
-## Models Implemented
+## 🔧 Data Preprocessing
 
-### 1. Logistic Regression (Baseline)
+Implemented using **ColumnTransformer**.
+
+### Numerical Features
+- Median imputation
+- Standard scaling
+
+### Categorical Features
+- Most frequent imputation
+- One-hot encoding
+
+All preprocessing steps are integrated directly into the machine learning pipeline.
+
+---
+
+## 🤖 Models Implemented
+
+### Logistic Regression (Baseline Model)
+
 - Used as a benchmark model
 - Max iterations set to 1000
-- Helps establish baseline performance and interpretability
+- Provides interpretable baseline results
 
-### 2. XGBoost Classifier (Final Model)
-- Implemented within a pipeline
+---
+
+### XGBoost Classifier (Final Model)
+
+Used as the **final optimized model**.
+
+Key characteristics:
+
+- Integrated within a machine learning pipeline
 - Hyperparameter tuning using **GridSearchCV**
-- Optimized using **5-fold cross-validation**
-- Primary metric: **ROC-AUC**
+- Optimized using **5-fold cross validation**
+- Primary evaluation metric: **ROC-AUC**
 
-Tuned hyperparameters include:
+Tuned parameters include:
+
 - `n_estimators`
 - `max_depth`
 - `learning_rate`
@@ -68,64 +141,85 @@ Tuned hyperparameters include:
 
 ---
 
-## Model Evaluation
-Evaluation goes beyond accuracy to fully understand model behavior:
+## 📈 Model Evaluation
 
-- **Cross-Validation ROC-AUC** for robust performance estimation
-- **Confusion Matrix** to analyze false positives and false negatives
-- **Classification Report** (precision, recall, F1-score per class)
-- **Precision–Recall Curve** for class-level trade-off analysis
-- **Learning Curves** to diagnose bias vs. variance and data sufficiency
+Evaluation goes beyond simple accuracy to understand model behavior:
+
+- **ROC-AUC Score**
+- **Confusion Matrix**
+- **Classification Report**
+- Precision
+- Recall
+- F1-Score
+- **Precision–Recall Curve**
+- **Learning Curves**
+
+These metrics help evaluate both **model accuracy and generalization capability**.
 
 ---
 
-## Model Explainability (SHAP)
-SHAP was used to interpret the final XGBoost model:
+## 🔍 Model Explainability (SHAP)
+
+To understand how the model makes predictions, **SHAP (SHapley Additive exPlanations)** was applied.
 
 ### Global Explainability
-- SHAP summary plots show overall feature importance
-- Key drivers include:
-  - Age
-  - FarePerPerson
-  - FamilySize
-  - Passenger class–related features
+
+SHAP summary plots highlight the most influential features:
+
+- Age
+- FarePerPerson
+- FamilySize
+- Passenger class features
 
 ### Local Explainability
-- SHAP waterfall plots explain individual passenger predictions
-- Demonstrates how each feature pushes predictions toward survival or non-survival
 
-These analyses improve trust and transparency in model decisions.
+SHAP waterfall plots explain individual passenger predictions, showing how each feature influences the final prediction.
+
+This improves **model transparency and trust**.
 
 ---
 
-## Key Learnings
+## 🧠 Key Learnings
+
 - Feature engineering can significantly improve model performance
-- Pipelines are essential for preventing data leakage
-- Evaluation metrics must align with the problem, not just accuracy
-- Model interpretability is critical for real-world ML applications
+- Machine learning pipelines prevent data leakage
+- Evaluation metrics must go beyond simple accuracy
+- Model explainability is critical for real-world ML applications
 
 ---
 
-## Technologies Used
+## 🛠 Technologies Used
+
 - Python
-- Pandas, NumPy
+- Pandas
+- NumPy
 - Scikit-learn
 - XGBoost
-- Matplotlib, Seaborn
+- Matplotlib
+- Seaborn
 - SHAP
 
 ---
 
-## Project Status
+## 📌 Project Status
+
 **Completed**
 
 Future improvements may include:
+
 - Testing additional ensemble models
-- Feature refinement
-- Validation on external or unseen datasets
+- Additional feature engineering
+- Validation on external datasets
 
 ---
 
-## Author
-Aspiring Data Scientist actively seeking **Data Science / Machine Learning internship opportunities**.  
-Feedback, suggestions, and collaboration are welcome.
+## 👨‍💻 Author
+
+**Abdul Rehman**
+
+Master’s Student — International Data Science  
+Rome Business School
+
+Actively seeking **Data Science / Machine Learning internship opportunities**
+
+📧 ds.7abdulrehman@gmail.com
